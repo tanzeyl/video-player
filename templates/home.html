@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Home</title>
+    <link rel="stylesheet" href="../static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      {% for i in range(length) %}
+      <a href="#" class="video">
+        <video autoplay loop muted>
+          <source src="{{ locations[i] }}" />
+        </video>
+      </a>
+      {% endfor %}
+    </div>
+    <center>
+      <button><a href="{{ url_for('upload') }}">Upload Video</a></button>
+    </center>
+  </body>
+</html>
