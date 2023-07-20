@@ -24,7 +24,7 @@ def home():
 
 @app.route("/upload", methods = ["GET", "POST"])
 def upload():
-  query = """SELECT `tag` FROM `videos`"""
+  query = """SELECT DISTINCT `tag` FROM `videos`"""
   cursor.execute(query)
   allTags = cursor.fetchall()
   tags = []
