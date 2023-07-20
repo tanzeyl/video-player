@@ -1,1 +1,28 @@
-qejbvkwej
+{% extends 'base.html' %} {% block title %}Upload{% endblock %} {% block header
+%}{% endblock %} {% block uploadForm %}
+<div class="formContainer">
+  <center><h1>Upload A Video Here!</h1></center>
+  <hr />
+  <center>
+    <form action="/uploadVideo" method="POST" enctype="multipart/form-data">
+      <label for="video">Select a file:</label>
+      <input type="file" id="video" name="video" accept="video/*" /><br />
+      <label for="tag">Select a tag for this video:</label>
+      <select name="tag" id="tag">
+        <option disabled selected value="no tag"></option>
+        {% for i in range(length) %}
+        <option value="{{ tags[i] }}">{{ tags[i].capitalize() }}</option>
+        {% endfor %}
+      </select>
+      <label for="newTag">Or create a new tag:</label>
+      <input
+        type="text"
+        id="newTag"
+        name="newTag"
+        placeholder="Enter a new tag. No spaces allowed."
+      />
+      <button class="btn submitBtn">Submit</button>
+    </form>
+  </center>
+</div>
+{% endblock %}
