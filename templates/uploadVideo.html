@@ -4,7 +4,12 @@
   <center><h1>Upload A Video Here!</h1></center>
   <hr />
   <center>
-    <form action="/uploadVideo" method="POST" enctype="multipart/form-data">
+    <form
+      action="/uploadVideo"
+      method="POST"
+      enctype="multipart/form-data"
+      class="uploadForm"
+    >
       <label for="video">Select a file:</label>
       <input type="file" id="video" name="video" accept="video/*" /><br />
       <label for="tag">Select a tag for this video:</label>

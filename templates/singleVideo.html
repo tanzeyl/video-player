@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block title %}Video{% endblock %} {% block video %}
+<div class="videoContainer">
+  <video autoplay loop muted class="singleVideo">
+    <source src="{{ location }}" />
+  </video>
+</div>
+<div class="comments">
+  <table class="table commentsTable">
+    <thead>
+      <th>Serial Number</th>
+      <th>Comments</th>
+    </thead>
+    <tbody>
+      {% if length == 1: %}
+      <tr>
+        <td colspan="2" style="text-align: center">No comments yet!</td>
+      </tr>
+      {% else %} {% for i in range(1, length) %}
+      <tr>
+        <td>{{ i }}</td>
+        <td>{{ comments[i] }}</td>
+      </tr>
+      {% endfor %} {% endif %}
+      <tr>
+        <td colspan="2">
+          <center>
+            <form action="/submitComment" method="POST" class="commentForm">
+              <input
+                type="text"
+                name="comment"
+                placeholder="Enter your comment."
+              />
+              <input type="hidden" name="vid" value="{{ videoId }}" />
+              <center><button class="btn commentBtn">Submit</button></center>
+            </form>
+          </center>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

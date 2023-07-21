@@ -15,12 +15,13 @@
           <a href="{{ url_for('home') }}" class="navLinks">Home</a>
           <a href="{{ url_for('upload') }}" class="navLinks">Upload Video</a>
           <a href="{{ url_for('allVideos') }}" class="navLinks">All Videos</a>
-          <a href="{{ url_for('about') }}" class="navLinks"
+          <a href="https://github.com/tanzeyl" class="navLinks"
             >About The Developer</a
           >
         </div>
       </div>
     </header>
-    {% block uploadForm %} {% endblock %} {% block videos %}{% endblock %}
+    {% block uploadForm %} {% endblock %} {% block videos %}{% endblock %} {%
+    block video %}{% endblock %}
   </body>
 </html>

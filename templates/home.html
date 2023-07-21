@@ -1,11 +1,14 @@
 {% extends 'base.html' %} {% block title %}Home{% endblock %} {% block videos %}
 <div class="container">
   {% for i in range(length) %}
-  <a href="#" class="video">
-    <video autoplay loop muted>
-      <source src="{{ locations[i] }}" />
-    </video>
-  </a>
+  <form action="/singleVideo" method="POST" class="hiddenForm">
+    <button class="videoBtn">
+      <video autoplay loop muted>
+        <source src="{{ locations[i] }}" />
+      </video>
+    </button>
+    <input type="hidden" value="{{ ids[i] }}" name="id" />
+  </form>
   {% endfor %}
 </div>
 <center>
@@ -13,4 +16,9 @@
     <a href="{{ url_for('upload') }}">Upload Video</a>
   </button>
 </center>
+<script>
+  function formSubmit(i) {
+    document.getElementsByClassName("hiddenForm")[i].submit();
+  }
+</script>
 {% endblock %}

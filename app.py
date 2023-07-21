@@ -8,29 +8,36 @@ cursor = conn.cursor()
 
 uploadPath = "static/videos/"
 
+def fetch(column):
+  query = f"""SELECT DISTINCT `{ column }` FROM `videos`"""
+  cursor.execute(query)
+  allData = cursor.fetchall()
+  data = []
+  for point in allData:
+    data.append(point[0])
+  return data
+
+def fetchData(videoId):
+  query = f"""SELECT `location`, `comments` FROM `videos` WHERE `id` = { videoId }"""
+  cursor.execute(query)
+  data = cursor.fetchall()
+  location = data[0][0]
+  comments = data[0][1]
+  comments = comments.split(",")
+  return location, comments
+
 app = Flask(__name__)
 app.secret_key = "****"
 
 @app.route("/", methods = ["GET", "POST"])
 def home():
-  query = """SELECT `location` FROM `videos`"""
-  cursor.execute(query)
-  allVideoData = cursor.fetchall()
-  locations = []
-  for data in allVideoData:
-    for location in data:
-      locations.append(location)
-  return render_template("home.html", locations = locations, length = len(locations))
+  locations = fetch("location")
+  ids = fetch("id")
+  return render_template("home.html", locations = locations, ids = ids, length = len(locations))
 
 @app.route("/upload", methods = ["GET", "POST"])
 def upload():
-  query = """SELECT DISTINCT `tag` FROM `videos`"""
-  cursor.execute(query)
-  allTags = cursor.fetchall()
-  tags = []
-  for data in allTags:
-    for tag in data:
-      tags.append(tag)
+  tags = fetch("tag")
   return render_template("uploadVideo.html", tags = tags, length = len(tags))
 
 @app.route("/uploadVideo", methods = ["GET", "POST"])
@@ -51,6 +58,29 @@ def getVideoData():
   cursor.execute(query)
   conn.commit()
   return redirect("/")
+
+@app.route("/singleVideo", methods = ["GET", "POST"])
+def renderSingleVideo():
+  videoId = request.form.get("id")
+  location, comments = fetchData(videoId)
+  return render_template("singleVideo.html", location = location, comments = comments, length = len(comments), videoId = videoId)
+
+@app.route("/submitComment", methods = ["GET", "POST"])
+def submitAComment():
+  vid = request.form.get("vid")
+  comment = request.form.get("comment")
+  query = f"""SELECT `comments` FROM `videos` WHERE `id` = { vid }"""
+  cursor.execute(query)
+  data = cursor.fetchall()
+  comments = data[0][0]
+  comments = comments.split(", ")
+  comments.append(comment)
+  comment = ",".join(comments)
+  query = f"""UPDATE `videos` SET `comments` = '{ comment }' WHERE `id` = { vid }"""
+  cursor.execute(query)
+  conn.commit()
+  location, comments = fetchData(vid)
+  return render_template("singleVideo.html", location = location, comments = comments, length = len(comments), videoId = vid)
 
 @app.route("/videos", methods = ["GET", "POST"])
 def allVideos():
