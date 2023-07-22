@@ -5,6 +5,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="../static/style.css" />
   </head>
   <body>
@@ -21,6 +25,22 @@
         </div>
       </div>
     </header>
+    <div class="mobile-container">
+      <div class="topnav">
+        <a href="{{ url_for('home') }}" class="active">Video Player</a>
+        <div id="myLinks">
+          <a href="{{ url_for('home') }}" class="navLinks">Home</a>
+          <a href="{{ url_for('upload') }}" class="navLinks">Upload Video</a>
+          <a href="{{ url_for('allVideos') }}" class="navLinks">All Videos</a>
+          <a href="https://github.com/tanzeyl" class="navLinks"
+            >About The Developer</a
+          >
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
     {% block uploadForm %} {% endblock %}{% block tagForm %} {% endblock %} {%
     block videos %}{% endblock %} {% block video %}{% endblock %}
     <footer>
@@ -58,5 +78,15 @@
         <p class="social">Youtube</p>
       </div>
     </footer>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+      }
+    </script>
   </body>
 </html>
