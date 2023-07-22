@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block title %}All Videos{% endblock %} {% block
+tagForm %}
+<div class="tagFormContainer">
+  <form action="/selectedVideos" method="POST" class="tagForm">
+    <select name="tag" id="tag">
+      {% for i in range(tagL) %}
+      <option value="{{ tags[i] }}">{{ tags[i].capitalize() }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn tagFormBtn">Submit</button>
+  </form>
+</div>
+{% endblock %} {% block videos %}
+<div class="container">
+  {% for i in range(length) %}
+  <form action="/singleVideo" method="POST" class="hiddenForm">
+    <button class="videoBtn">
+      <video autoplay loop muted>
+        <source src="{{ locations[i] }}" />
+      </video>
+    </button>
+    <input type="hidden" value="{{ ids[i] }}" name="id" />
+  </form>
+  {% endfor %}
+</div>
+{% endblock %}

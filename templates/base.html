@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/style.css" />
   </head>
   <body>
-    <header>
+    <header class="header">
       <div class="logo">Video Player</div>
       <div class="nav">
         <div class="navContainer">
@@ -21,7 +21,42 @@
         </div>
       </div>
     </header>
-    {% block uploadForm %} {% endblock %} {% block videos %}{% endblock %} {%
-    block video %}{% endblock %}
+    {% block uploadForm %} {% endblock %}{% block tagForm %} {% endblock %} {%
+    block videos %}{% endblock %} {% block video %}{% endblock %}
+    <footer>
+      <div class="left">
+        <center>
+          <h2 style="color: white">Download our APP!</h2>
+          <br /><br />
+          <p style="color: gray">Download our app for Android and iOS</p>
+          <br /><br />
+          <img
+            src="../static/images/Appstore.png"
+            alt="PlayStore"
+            width="200px"
+          />
+          <br /><br />
+          <img
+            src="../static/images/playstore.png"
+            alt="AppStore"
+            width="200px"
+          />
+        </center>
+      </div>
+      <div class="mid">
+        <div class="footerLogo">@tanzzeyl</div>
+        <div class="footerText">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex rem natus
+          exercitationem hic, provident doloremque omnis sunt tempora nihil
+          odio?<br /><br />Lorem ipsum dolor sit amet.
+        </div>
+      </div>
+      <div class="right">
+        <h2 class="followHeader">Follow Us</h2>
+        <p class="social">Instagram</p>
+        <p class="social">Facebook</p>
+        <p class="social">Youtube</p>
+      </div>
+    </footer>
   </body>
 </html>

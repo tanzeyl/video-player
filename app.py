@@ -84,7 +84,24 @@ def submitAComment():
 
 @app.route("/videos", methods = ["GET", "POST"])
 def allVideos():
-  return render_template("allVideos.html")
+  locations = fetch("location")
+  ids = fetch("id")
+  tags = fetch("tag")
+  return render_template("allVideos.html", locations = locations, ids = ids, tags = tags, length = len(locations), tagL = len(tags))
+
+@app.route("/selectedVideos", methods = ["GET", "POST"])
+def getSelectedVideos():
+  tag = request.form.get("tag")
+  locations = []
+  ids = []
+  query = f"""SELECT `id`, `location` FROM `videos` WHERE `tag` = '{ tag }'"""
+  cursor.execute(query)
+  allData = cursor.fetchall()
+  for data in allData:
+    ids.append(data[0])
+    locations.append(data[1])
+  tags = fetch("tag")
+  return render_template("allVideos.html", locations = locations, ids = ids, tags = tags, length = len(locations), tagL = len(tags))
 
 @app.route("/about", methods = ["GET", "POST"])
 def about():
